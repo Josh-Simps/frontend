@@ -11,6 +11,8 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import PageSlider from '../PageSlider/PageSlider'
+import Page from './Page'
+import PageCover from './PageCover'
 
 export interface BookType {
   title: string
@@ -24,51 +26,6 @@ export interface BookType {
     images: string[]
   }
 }
-
-interface CoverType {
-  title: string
-  coverImage?: string
-  author?: string
-  publishDate?: Date
-  blurb?: string
-  fontFamily: string
-}
-
-interface PageType {
-  img: string
-  pageContent: string
-  pageNumber: string
-  fontFamily: string
-}
-
-const PageCover = React.forwardRef<HTMLDivElement, CoverType>((props, ref) => {
-  console.log(props.fontFamily)
-  return (
-    <div className="page page-cover" ref={ref}>
-      <div className="page-content" style={{ fontFamily: props.fontFamily }}>
-        <img src={props.coverImage}></img>
-        <h1>{props.title}</h1>
-        <h3>{props.author}</h3>
-        <h4>{props.blurb}</h4>
-      </div>
-    </div>
-  )
-})
-
-const Page = React.forwardRef<HTMLDivElement, PageType>((props, ref) => {
-  return (
-    <div className="page" ref={ref} data-density="hard">
-      <div className="page-content" style={{ fontFamily: props.fontFamily }}>
-        <img src={props.img}></img>
-        <h5>{props.pageContent}</h5>
-
-        <div className="page-corner">
-          <h5>{props.pageNumber}</h5>
-        </div>
-      </div>
-    </div>
-  )
-})
 
 const formatBase64Image = (image: string): string => {
   return `data:image/jpeg;base64,${image}`
@@ -182,8 +139,8 @@ const BookPage = () => {
               return (
                 <Page
                   key={index}
-                  img={imageBase64}
-                  pageContent={pageContent}
+                  image={imageBase64}
+                  content={pageContent}
                   pageNumber={(index + 1).toString()}
                   fontFamily={fontFamily}
                 />
