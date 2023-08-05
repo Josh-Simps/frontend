@@ -3,7 +3,48 @@
     padding: 0;
 }
 
-#book {
-    background-color: red;
+.bookPage {
     width: 100vw;
+    height: 100vh;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-section {
+    margin: 0 5vw;
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+#book {
+    margin: auto;
+    background-color: #fff;
+    width: 90vw;
+}
+
+.page {
+    background-image: url(../assets/paper-background.jpg);
+    background-size: cover;
+    text-align: justify;
+    line-height: 23px;
+}
+@font-face {
+    font-family: chillax;
+    src: url(../assets/fonts/Chillax-Medium.woff2);
+}
+
+.page-content {
+    margin: 4vmax;
+    font-family: chillax, sans-serif;
+    color:
+}
+
+/* number in bottom right corner of page */
+.page-corner {
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 5%;
 }
