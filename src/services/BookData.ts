@@ -17,6 +17,8 @@ export interface Content {
   images: string[]
 }
 
+export type Language = 'english' | '15' | 'images'
+
 export type BookType = {
   book: Book[]
 }
