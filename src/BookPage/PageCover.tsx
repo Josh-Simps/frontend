@@ -12,7 +12,7 @@ const PageCover = forwardRef<HTMLDivElement, CoverProps>(({ coverImage, title, a
     <div className="page page-cover" ref={ref}>
       <div className="page-content" style={{ fontFamily }}>
         <img src={coverImage}></img>
-        <h1>{title}</h1>
+        <h1 style={{ fontFamily }}>{title}</h1>
         <h3>{author}</h3>
       </div>
     </div>

@@ -59,7 +59,10 @@ const BookPage = () => {
     setLang(selectValue)
     if (selectValue === 'unown') {
       setFontFamily('unown')
-    } else {
+    } else if (selectValue === '15') {
+      setFontFamily('Times New Roman')
+    }
+    else {
       setFontFamily('chillax')
     }
   }

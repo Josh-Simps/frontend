@@ -33,7 +33,7 @@ const StyledSlider = styled(Slider)({
 const marks = [
   {
     value: 0,
-    label: 'Symbols',
+    label: 'Prehistoric English',
   },
   {
     value: 50,
@@ -41,7 +41,7 @@ const marks = [
   },
   {
     value: 100,
-    label: 'English',
+    label: 'Modern English',
   },
 ]
 
