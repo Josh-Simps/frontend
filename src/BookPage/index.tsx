@@ -49,7 +49,7 @@ const Page = React.forwardRef<HTMLDivElement, PageType>((props, ref) => {
         <h5>{props.pageContent}</h5>
 
         <div className="page-corner">
-          <h5>{props.pageNumber}</h5>
+          <h5>Page {props.pageNumber}</h5>
         </div>
 
       </div>
