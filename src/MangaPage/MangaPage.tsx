@@ -15,6 +15,7 @@ import PageSlider from '../PageSlider/PageSlider'
 import Page from './Page'
 import currentBookJson from './mock.json'
 import { IconButton } from '@mui/material'
+import HistorySlider from '../HistorySlider/HistorySlider'
 
 export interface BookType {
   title: string
@@ -58,6 +59,24 @@ const MangaPage = () => {
     setLang(selectValue)
   }
 
+  function mapLanguage(value: number): Language {
+    switch (value) {
+      case 0:
+        return 'unown' as Language
+      case 50:
+        return '15' as Language
+      case 100:
+        return 'english' as Language
+      default:
+        return 'image' as Language
+    }
+  }
+
+  const handleSliderChange = (value: number) => {
+    const selectValue = mapLanguage(value)
+    setLang(selectValue)
+  }
+
   if (loading) {
     return (
       <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true} onClick={() => {}}>
@@ -88,28 +107,18 @@ const MangaPage = () => {
   return (
     <>
       <div className="mangaPage">
-        <div className="manga-header-section">
+        <div className="manga-header-section" style={{marginBottom: "0vh"}}>
           <div id="top-left">
             <Link to="/">
               <IconButton aria-label="Back" size="large" sx={{ color: '#FD943D', height: "55px", backgroundColor: "#111"}}>
                 <ArrowBackIcon />
               </IconButton>
             </Link>
+           
           </div>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-standard-label">Language</InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={lang}
-              onChange={handleChange}
-              label="Language"
-            >
-              <MenuItem value={'english'}>English</MenuItem>
-              <MenuItem value={'15'}>15th Century English</MenuItem>
-              <MenuItem value={'unown'}>Symbols</MenuItem>
-            </Select>
-          </FormControl>
+          <div style={{backgroundColor: "rgba(0,0,0,0.8)", padding: "2vh 7vw 0 7vw", borderRadius: "10px"}}>
+            <HistorySlider defaultValue={100} onSliderChange={handleSliderChange}></HistorySlider>
+          </div>
         </div>
 
         <div id="book">
