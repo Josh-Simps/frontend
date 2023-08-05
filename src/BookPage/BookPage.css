@@ -1,3 +1,8 @@
+@font-face {
+    font-family: chillax;
+    src: url(../assets/fonts/Chillax-Medium.woff2);
+}
+
 #root {
     margin: 0;
     padding: 0;
@@ -30,15 +35,19 @@
     text-align: justify;
     line-height: 23px;
 }
-@font-face {
-    font-family: chillax;
-    src: url(../assets/fonts/Chillax-Medium.woff2);
+
+.page img {
+    width: 40%;
+    height: auto;
 }
 
 .page-content {
     margin: 4vmax;
     font-family: chillax, sans-serif;
-    color:
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
 }
 
 /* number in bottom right corner of page */
