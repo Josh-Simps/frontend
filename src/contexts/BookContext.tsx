@@ -1,7 +1,7 @@
 import { Config } from '../config'
 import { Book, BookMetadata } from '../services/BookData'
 import { FC, ReactNode, createContext, useCallback, useContext, useEffect, useState } from 'react'
-import { isAbortError } from '../utils/requestUtils'
+import { handleResponseError, isAbortError } from '../utils/requestUtils'
 
 interface BookContextType {
   bookMetadata: BookMetadata[]
@@ -16,12 +16,6 @@ const BookContext = createContext<BookContextType>({
 })
 
 export const useBookContext = () => useContext(BookContext)
-
-function handleResponseError(error: unknown) {
-  if (!isAbortError(error)) {
-    console.error(error)
-  }
-}
 
 export const BookContextProvider: FC<{
   children?: ReactNode
