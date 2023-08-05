@@ -1,5 +1,5 @@
 import HTMLFlipBook from 'react-pageflip'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './BookPage.css'
 import { useParams } from 'react-router-dom'
 import Backdrop from '@mui/material/Backdrop'
@@ -10,6 +10,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
+import PageSlider from '../PageSlider/PageSlider'
 
 export interface BookType {
   title: string
@@ -70,12 +71,15 @@ const formatBase64Image = (image: string): string => {
   return `data:image/jpeg;base64,${image}`
 }
 
-const BookPage = (props) => {
+const BookPage = () => {
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
   const { setCurrentBookId, currentBook } = useBookContext()
   const [lang, setLang] = useState<Language>('english')
-  console.log('id', id)
+
+  // Page slider
+  const [pageNumber, setPageNumber] = React.useState(0)
+  const ref = useRef(null)
 
   const handleChange = (event: SelectChangeEvent) => {
     setLang(event.target.value as Language)
@@ -102,6 +106,23 @@ const BookPage = (props) => {
 
   const book = currentBook as Book
 
+  const flipPage = (pageNumber: number, flipBar: boolean) => {
+    if (ref.current != null) {
+      setPageNumber(pageNumber)
+      if (flipBar) {
+        ref.current.pageFlip().flip(pageNumber * 2)
+      }
+    }
+  }
+
+  const flip = (num: number) => {
+    setPageNumber(num / 2)
+  }
+
+  const pages = currentBook.content.english.length
+
+  const scrollable = Math.ceil(pages / 2)
+
   return (
     <>
       <div className="bookPage">
@@ -125,7 +146,16 @@ const BookPage = (props) => {
         </div>
 
         <div id="book">
-          <HTMLFlipBook width={500} height={480} size="stretch" drawShadow={true}>
+          <HTMLFlipBook
+            width={500}
+            height={480}
+            size="stretch"
+            drawShadow={true}
+            ref={ref}
+            onFlip={(data) => {
+              flip(data.data)
+            }}
+          >
             <PageCover coverImage={book.coverImage} author={book.author} title={book.title}></PageCover>
 
             {book.content[lang].map((pageContent, index) => {
@@ -141,6 +171,9 @@ const BookPage = (props) => {
               )
             })}
           </HTMLFlipBook>
+        </div>
+        <div className="pageSlider">
+          <PageSlider page={pageNumber} maxPages={scrollable} updatePage={flipPage} />
         </div>
       </div>
       <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading} onClick={() => {}}>
