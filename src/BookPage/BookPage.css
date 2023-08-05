@@ -3,7 +3,30 @@
     padding: 0;
 }
 
-#book {
-    background-color: red;
+.bookPage {
     width: 100vw;
+    height: 100vh;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+#book {
+    margin: auto;
+    background-color: #fff;
+    width: 90vw;
+}
+
+.page {
+    background-image: url(/public/paper-background.jpg);
+    background-size: cover;
+}
+
+.page-cover {
+
 }
