@@ -1,7 +1,7 @@
 import HTMLFlipBook from 'react-pageflip'
 import React, { useEffect, useRef, useState } from 'react'
 import './BookPage.css'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useBookContext } from '../contexts/BookContext'
@@ -73,6 +73,7 @@ const formatBase64Image = (image: string): string => {
 
 const BookPage = () => {
   const { id } = useParams()
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const { setCurrentBookId, currentBook } = useBookContext()
   const [lang, setLang] = useState<Language>('english')
@@ -128,7 +129,13 @@ const BookPage = () => {
       <div className="bookPage">
         <div className="header-section">
           <div id="top-left">
-            <button>←</button>
+            <button
+              onClick={() => {
+                navigate('/browser')
+              }}
+            >
+              ←
+            </button>
           </div>
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-standard-label">Language</InputLabel>
