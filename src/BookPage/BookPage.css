@@ -38,7 +38,6 @@
 .page-content {
     margin: 4vmax;
     font-family: chillax, sans-serif;
-    color:
 }
 
 /* number in bottom right corner of page */
@@ -47,4 +46,12 @@
     position: absolute;
     bottom: 0;
     right: 5%;
+}
+
+.pageSlider {
+    margin-bottom: 50px;
+}
+
+.slider {
+    background-color:red ;
 }

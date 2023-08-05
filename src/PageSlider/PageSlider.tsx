@@ -3,21 +3,22 @@ import "./PageSlider.css";
 
 type Props = {
   page: number;
-  updatePage: (pageNumber: number) => void;
+  maxPages: number;
+  updatePage: (pageNumber: number, flipBar: boolean) => void;
 };
 
-const PageSlider = ({ page, updatePage }: Props) => {
+const PageSlider = ({ page, maxPages, updatePage }: Props) => {
   return (
     <ReactSlider
       className="test"
       thumbClassName="thumb"
       trackClassName="slider"
       renderThumb={(props, state) => <div {...props}></div>}
-      min={1}
-      max={4}
+      min={0}
+      max={maxPages}
       value={page}
       defaultValue={1}
-      onChange={(val, index) => updatePage(val)}
+      onChange={(val, index) => updatePage(val, true)}
     />
   );
 };
