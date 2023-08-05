@@ -1,7 +1,7 @@
 import { Config } from '../config'
 import { Book, BookMetadata } from '../services/BookData'
 import { FC, ReactNode, createContext, useCallback, useContext, useEffect, useState } from 'react'
-import { handleResponseError, isAbortError } from '../utils/requestUtils'
+import { handleResponseError } from '../utils/requestUtils'
 
 interface BookContextType {
   bookMetadata: BookMetadata[]
