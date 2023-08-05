@@ -1,6 +1,7 @@
 import { Config } from '../config'
 import { BookMetadata } from '../services/BookData'
-import { FC, ReactNode, createContext, useEffect, useState } from 'react'
+import { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react'
+import { isAbortError } from '../utils/requestUtils'
 
 interface BookContextType {
   bookMetadata: BookMetadata[]
@@ -9,6 +10,8 @@ interface BookContextType {
 const BookContext = createContext<BookContextType>({
   bookMetadata: [],
 })
+
+export const useBookContext = () => useContext(BookContext)
 
 export const BookContextProvider: FC<{
   children?: ReactNode
@@ -24,8 +27,9 @@ export const BookContextProvider: FC<{
         .then((response) => response.json())
         .then((data) => setBookMetadata(data))
         .catch((err) => {
-          if (err instanceof DOMException && err.name === 'AbortError') return
-          console.error(err)
+          if (!isAbortError(err)) {
+            console.error(err)
+          }
         })
 
       return () => controller.abort()

@@ -1,22 +1,22 @@
 export interface BookMetadata {
-  id: string;
-  title: string;
-  image: string;
-  author: string;
-  publishDate: string;
+  _id: string
+  title: string
+  image: string
+  author: string
+  publishDate: string
 }
 
 export interface BookData extends BookMetadata {
-  blurb: string;
-  content: Content;
+  blurb: string
+  content: Content
 }
 
 export interface Content {
-  english: string[];
-  "15": string[];
-  images: string[];
+  english: string[]
+  '15': string[]
+  images: string[]
 }
 
 export type BookType = {
-  book: BookData[];
-};
+  book: BookData[]
+}
