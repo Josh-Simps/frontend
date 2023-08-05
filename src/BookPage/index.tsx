@@ -17,11 +17,11 @@ export interface BookType {
 }
 
 interface CoverType {
-  title: string,
-  coverImage?: string,
-  author?: string,
-  publishDate?: Date,
-  blurb?: string,
+  title: string
+  coverImage?: string
+  author?: string
+  publishDate?: Date
+  blurb?: string
 }
 
 interface PageType {
@@ -40,8 +40,8 @@ const PageCover = React.forwardRef<HTMLDivElement, CoverType>((props, ref) => {
         <h4>{props.blurb}</h4>
       </div>
     </div>
-  );
-});
+  )
+})
 
 const Page = React.forwardRef<HTMLDivElement, PageType>((props, ref) => {
   return (
@@ -53,18 +53,16 @@ const Page = React.forwardRef<HTMLDivElement, PageType>((props, ref) => {
         <div className="page-corner">
           <h5>{props.pageNumber}</h5>
         </div>
-
       </div>
     </div>
-  );
-});
+  )
+})
 
 function BookPage() {
   return (
     <div className="bookPage">
       <div className="header-section">
         <h1>Book Page</h1>
-
       </div>
 
       <div id="book">
@@ -92,9 +90,8 @@ function BookPage() {
           <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content2} pageNumber="1"></Page>
         </HTMLFlipBook>
       </div>
-      
     </div>
-  );
+  )
 }
 
-export default BookPage;
+export default BookPage
