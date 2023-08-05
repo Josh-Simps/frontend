@@ -1,88 +1,63 @@
-import HTMLFlipBook from "react-pageflip";
 import React from "react";
 import "./BookBrowser.css";
 
-export interface BookType {
-  title: string
-  coverImage: string
-  author: string
-  publishDate: Date
-  blurb: string
-  originalContent: string
-  translatedContent: Record<string, string>
+export interface BrowserProp { 
+  title: String,
+  blurb: String
 }
 
-interface CoverType {
-  title: string,
-  coverImage?: string,
-  author?: string,
-  publishDate?: Date,
-  blurb?: string,
+export interface BookProp {
+  title: String,
+  coverImage?: String,
+  author: String
 }
 
-interface PageType {
-  img?: string,
-  pageContent: string,
-  pageNumber: string
-}
-
-const PageCover = React.forwardRef<HTMLDivElement, CoverType>((props, ref) => {
+const BrowserHeader = React.forwardRef<HTMLDivElement, BrowserProp>((props, ref) => {
   return (
-    <div className="page page-cover" ref={ref} data-density="hard">
-      <div className="page-content">
-        <img src={props.coverImage}></img>
+    <div ref={ref}>
+      <div>
         <h1>{props.title}</h1>
-        <h4>Author: {props.author}</h4>
         <h4>{props.blurb}</h4>
       </div>
     </div>
   );
 });
 
-const Page = React.forwardRef<HTMLDivElement, PageType>((props, ref) => {
+
+const Book = React.forwardRef<HTMLDivElement, BookProp>((props, ref) => {
   return (
-    <div className="page" ref={ref} data-density="hard">
-      <div className="page-content">
-        <img src={props.img}></img>
-        <h5>{props.pageContent}</h5>
-
-        <div className="pageCorner">
-          <h2>Page {props.pageNumber}</h2>
-        </div>
-
+    <div className="book" ref={ref} data-density="hard">
+      <div>
+        <h1>{props.title}</h1>
+        <img src={props.coverImage}></img>
+        <h4>{props.author}</h4>
       </div>
     </div>
   );
 });
 
-function BookPage() {
+
+const BrowserMain = React.forwardRef<HTMLDivElement, BookProp>((props, ref) => {
   return (
-    <div className="bookPage">
-      <div className="header-section">
-        <h1>Book Page</h1>
-
+    <div className="bookBrowser">
+      <BrowserHeader title={"Welcome Back!"} blurb={"What would you like to read today?"} bookList={[]}>
+      </BrowserHeader>
+      <div className="shelf">
+        <Book title={"book title"} author={"book author"}></Book>
+        <Book title={"book title"} author={"book author"}></Book>
+        <Book title={"book title"} author={"book author"}></Book>
+        <Book title={"book title"} author={"book author"}></Book>
+        <Book title={"book title"} author={"book author"}></Book>
+        <Book title={"book title"} author={"book author"}></Book>
+        <Book title={"book title"} author={"book author"}></Book>
+        <Book title={"book title"} author={"book author"}></Book>
+        <Book title={"book title"} author={"book author"}></Book>
+        <Book title={"book title"} author={"book author"}></Book>
+        <Book title={"book title"} author={"book author"}></Book>
+        <Book title={"book title"} author={"book author"}></Book>
       </div>
-
-      <div id="book">
-        <HTMLFlipBook width={500} height={500} size="stretch" drawShadow={true} >
-          <PageCover title="Hello"></PageCover>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-          <Page img="https://i.imgur.com/5yQqB1T.jpg" pageContent={content} pageNumber="1"></Page>
-        </HTMLFlipBook>
-      </div>
-      
     </div>
   );
-}
+});
 
-export default BookPage;
+export default BrowserMain;
