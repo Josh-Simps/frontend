@@ -77,3 +77,11 @@
     bottom: 0;
     right: 5%;
 }
+
+.pageSlider {
+    margin-bottom: 50px;
+}
+
+.slider {
+    background-color:red ;
+}
