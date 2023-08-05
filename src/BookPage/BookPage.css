@@ -25,8 +25,17 @@
 .page {
     background-image: url(/public/paper-background.jpg);
     background-size: cover;
+    text-align: justify;
+    line-height: 23px;
 }
 
-.page-cover {
+.page-content {
+    margin: 4vmax;
+}
 
+.page-corner {
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 5%;
 }
