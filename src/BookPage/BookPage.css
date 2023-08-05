@@ -16,7 +16,7 @@
 
 body {
     overflow: hidden; /* Hide scrollbars */
-  }
+}
 
 img {
     box-shadow: #000 2px 4px 5px;
@@ -97,6 +97,16 @@ img {
     position: absolute;
     bottom: 0;
     right: 5%;
+}
+
+.page-cover h1 {
+    font-family: "Tangerine";
+    margin-bottom: 0;
+}
+
+.page-cover h3 {
+    font-size: 1vmax;
+    letter-spacing: 3px;
 }
 
 .pageSlider {

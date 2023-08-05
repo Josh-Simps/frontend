@@ -2,16 +2,19 @@ import HTMLFlipBook from 'react-pageflip'
 import React, { useEffect, useRef, useState } from 'react'
 import './MangaPage.css'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Book, Language } from '../services/BookData'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Select, { SelectChangeEvent } from '@mui/material/Select'  
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import PageSlider from '../PageSlider/PageSlider'
 import Page from './Page'
 import currentBookJson from './mock.json'
+import { IconButton } from '@mui/material'
 
 export interface BookType {
   title: string
@@ -87,13 +90,11 @@ const MangaPage = () => {
       <div className="mangaPage">
         <div className="manga-header-section">
           <div id="top-left">
-            <button
-              onClick={() => {
-                navigate('/browser')
-              }}
-            >
-              ←
-            </button>
+            <Link to="/">
+              <IconButton aria-label="Back" size="large" sx={{ color: '#FD943D', height: "55px", backgroundColor: "#111"}}>
+                <ArrowBackIcon />
+              </IconButton>
+            </Link>
           </div>
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-standard-label">Language</InputLabel>
