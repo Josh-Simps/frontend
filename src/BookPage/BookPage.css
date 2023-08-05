@@ -17,6 +17,8 @@
     width: 100vw;
     height: 100vh;
     background-color: #333;
+    background-image: url(../assets/woodtable.jpg);
+    background-size: cover;
     display: flex;
     flex-direction: column;
 }
@@ -49,13 +51,14 @@
 }
 
 #book {
+    box-shadow: #000 5px 10px 20px;
     margin: auto;
-    background-color: #fff;
+    background-color: #4c2c02;
     width: 90vw;
 }
 
 .page {
-    background-image: url(../assets/paper-background.jpg);
+    background-image: url(../assets/parchment.jpg);
     background-size: cover;
     text-align: justify;
     line-height: 23px;
@@ -83,7 +86,7 @@
 }
 
 .pageSlider {
-    margin-bottom: 50px;
+    margin-bottom: 5vh;
 }
 
 .slider {
