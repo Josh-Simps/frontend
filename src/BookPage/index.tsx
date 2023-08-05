@@ -31,18 +31,21 @@ interface CoverType {
   author?: string
   publishDate?: Date
   blurb?: string
+  fontFamily: string
 }
 
 interface PageType {
   img: string
   pageContent: string
   pageNumber: string
+  fontFamily: string
 }
 
 const PageCover = React.forwardRef<HTMLDivElement, CoverType>((props, ref) => {
+  console.log(props.fontFamily)
   return (
     <div className="page page-cover" ref={ref}>
-      <div className="page-content">
+      <div className="page-content" style={{ fontFamily: props.fontFamily }}>
         <img src={props.coverImage}></img>
         <h1>{props.title}</h1>
         <h3>{props.author}</h3>
@@ -55,7 +58,7 @@ const PageCover = React.forwardRef<HTMLDivElement, CoverType>((props, ref) => {
 const Page = React.forwardRef<HTMLDivElement, PageType>((props, ref) => {
   return (
     <div className="page" ref={ref} data-density="hard">
-      <div className="page-content">
+      <div className="page-content" style={{ fontFamily: props.fontFamily }}>
         <img src={props.img}></img>
         <h5>{props.pageContent}</h5>
 
@@ -77,13 +80,20 @@ const BookPage = () => {
   const [loading, setLoading] = useState(true)
   const { setCurrentBookId, currentBook } = useBookContext()
   const [lang, setLang] = useState<Language>('english')
+  const [fontFamily, setFontFamily] = useState<string>('chillax')
 
   // Page slider
   const [pageNumber, setPageNumber] = React.useState(0)
   const ref = useRef(null)
 
   const handleChange = (event: SelectChangeEvent) => {
-    setLang(event.target.value as Language)
+    const selectValue = event.target.value as Language
+    setLang(selectValue)
+    if (selectValue === 'unown') {
+      setFontFamily('unown')
+    } else {
+      setFontFamily('chillax')
+    }
   }
 
   useEffect(() => {
@@ -148,11 +158,12 @@ const BookPage = () => {
             >
               <MenuItem value={'english'}>English</MenuItem>
               <MenuItem value={'15'}>15th Century English</MenuItem>
+              <MenuItem value={'unown'}>Symbols</MenuItem>
             </Select>
           </FormControl>
         </div>
 
-        <div id="book">
+        <div id="book" style={{ fontFamily: '' }}>
           <HTMLFlipBook
             width={500}
             height={480}
@@ -163,9 +174,9 @@ const BookPage = () => {
               flip(data.data)
             }}
           >
-            <PageCover coverImage={book.coverImage} author={book.author} title={book.title}></PageCover>
+            <PageCover coverImage={book.coverImage} author={book.author} title={book.title} fontFamily={fontFamily} />
 
-            {book.content[lang].map((pageContent, index) => {
+            {book.content[lang === 'unown' ? 'english' : lang].map((pageContent, index) => {
               const imageBase64 = formatBase64Image(book.content['images'][index])
 
               return (
@@ -174,7 +185,8 @@ const BookPage = () => {
                   img={imageBase64}
                   pageContent={pageContent}
                   pageNumber={(index + 1).toString()}
-                ></Page>
+                  fontFamily={fontFamily}
+                />
               )
             })}
           </HTMLFlipBook>

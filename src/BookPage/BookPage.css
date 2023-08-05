@@ -3,6 +3,11 @@
     src: url(../assets/fonts/Chillax-Medium.woff2);
 }
 
+@font-face {
+    font-family: unown;
+    src: url(../assets/fonts/Unown.ttf);
+}
+
 #root {
     margin: 0;
     padding: 0;
@@ -63,7 +68,6 @@
 
 .page-content {
     margin: 4vmax;
-    font-family: chillax, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
