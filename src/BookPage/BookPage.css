@@ -17,10 +17,11 @@
 }
 
 .header-section {
-    margin: 0 5vw;
+    margin: 2.5vh 5vw -5vh 5vw;
     height: 8vh;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 #book {

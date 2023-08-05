@@ -59,12 +59,12 @@ const Page = React.forwardRef<HTMLDivElement, PageType>((props, ref) => {
   );
 });
 
-function BookPage() {
+function BookPage(props) {
   return (
     <div className="bookPage">
       <div className="header-section">
-        <h1>Book Page</h1>
-
+        <h1>Title {props.title}</h1>
+        <h1>Switch Bar</h1>
       </div>
 
       <div id="book">
