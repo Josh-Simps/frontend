@@ -17,10 +17,18 @@ export const BookContextProvider: FC<{
 
   useEffect(() => {
     if (bookMetadata.length === 0) {
-      fetch(`${Config.BackendBaseUrl}/api/books`)
+      const controller = new AbortController()
+      const signal = controller.signal
+
+      fetch(`${Config.BackendBaseUrl}/api/books`, { signal })
         .then((response) => response.json())
         .then((data) => setBookMetadata(data))
-        .catch(console.error)
+        .catch((err) => {
+          if (err instanceof DOMException && err.name === 'AbortError') return
+          console.error(err)
+        })
+
+      return () => controller.abort()
     }
   }, [bookMetadata])
 
