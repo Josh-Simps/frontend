@@ -1,3 +1,8 @@
+@font-face {
+    font-family: chillax;
+    src: url(../assets/fonts/Chillax-Medium.woff2);
+}
+
 #root {
     margin: 0;
     padding: 0;
@@ -6,12 +11,14 @@
 .bookPage {
     width: 100vw;
     height: 100vh;
-    background-color: red;
+    background-color: #333;
     display: flex;
     flex-direction: column;
 }
 
 .header-section {
+    margin: 0 5vw;
+    height: 8vh;
     display: flex;
     justify-content: space-between;
 }
@@ -23,10 +30,30 @@
 }
 
 .page {
-    background-image: url(/public/paper-background.jpg);
+    background-image: url(../assets/paper-background.jpg);
     background-size: cover;
+    text-align: justify;
+    line-height: 23px;
 }
 
-.page-cover {
+.page img {
+    width: 40%;
+    height: auto;
+}
 
+.page-content {
+    margin: 4vmax;
+    font-family: chillax, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+}
+
+/* number in bottom right corner of page */
+.page-corner {
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 5%;
 }
