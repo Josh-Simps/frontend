@@ -62,8 +62,10 @@ function BookPage(props) {
   return (
     <div className="bookPage">
       <div className="header-section">
-
-        <h1>Title {props.title}</h1>
+        <div id="top-left">
+          <button>←</button>
+          <h1>Title {props.title}</h1>
+        </div>
         <h1>Switch Bar</h1>
 
       </div>

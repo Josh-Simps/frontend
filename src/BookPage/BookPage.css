@@ -24,6 +24,25 @@
     align-items: center;
 }
 
+.header-section #top-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-section #top-left button {
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    font-size: 3vmax;
+    width: 4vw;
+    padding: 0px;
+    margin-right: 3vw;
+}
+
+.header-section #top-left button:hover {
+    background-color: #555;
+}
+
 #book {
     margin: auto;
     background-color: #fff;
