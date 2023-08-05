@@ -1,3 +1,8 @@
+@font-face {
+    font-family: chillax;
+    src: url(../assets/fonts/Chillax-Medium.woff2);
+}
+
 #root {
     margin: 0;
     padding: 0;
@@ -12,10 +17,30 @@
 }
 
 .header-section {
-    margin: 0 5vw;
+    margin: 2.5vh 5vw -5vh 5vw;
     height: 8vh;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.header-section #top-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-section #top-left button {
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    font-size: 3vmax;
+    width: 4vw;
+    padding: 0px;
+    margin-right: 3vw;
+}
+
+.header-section #top-left button:hover {
+    background-color: #555;
 }
 
 #book {
@@ -30,14 +55,19 @@
     text-align: justify;
     line-height: 23px;
 }
-@font-face {
-    font-family: chillax;
-    src: url(../assets/fonts/Chillax-Medium.woff2);
+
+.page img {
+    width: 40%;
+    height: auto;
 }
 
 .page-content {
     margin: 4vmax;
     font-family: chillax, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
 }
 
 /* number in bottom right corner of page */

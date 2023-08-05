@@ -1,0 +1,33 @@
+#root {
+    margin: 0;
+    padding: 0;
+}
+
+.bookBrowser {
+    width: 100vw;
+    height: 100vh;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+}
+
+.shelf {
+    width: 80vw;
+    height: 80vh;
+    background-color: antiquewhite;
+    margin: auto;
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    Overflow-x:scroll;
+}
+
+.book {
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+}
