@@ -1,15 +1,16 @@
 import React from "react";
 import "./BookBrowser.css";
+import { useBookContext } from "../contexts/BookContext";
 
 export interface BrowserProp { 
-  title: String,
-  blurb: String
+  title: string,
+  blurb: string
 }
 
 export interface BookProp {
-  title: String,
-  coverImage?: String,
-  author: String
+  title: string,
+  coverImage?: string,
+  author: string
 }
 
 const BrowserHeader = React.forwardRef<HTMLDivElement, BrowserProp>((props, ref) => {
@@ -29,7 +30,7 @@ const Book = React.forwardRef<HTMLDivElement, BookProp>((props, ref) => {
     <div className="book" ref={ref} data-density="hard">
       <div>
         <h1>{props.title}</h1>
-        <img src={props.coverImage}></img>
+        <img src={props.coverImage}></img>/
         <h4>{props.author}</h4>
       </div>
     </div>
@@ -38,23 +39,12 @@ const Book = React.forwardRef<HTMLDivElement, BookProp>((props, ref) => {
 
 
 const BrowserMain = React.forwardRef<HTMLDivElement, BookProp>((props, ref) => {
+  const bookMetadata = useBookContext();
   return (
     <div className="bookBrowser">
-      <BrowserHeader title={"Welcome Back!"} blurb={"What would you like to read today?"} bookList={[]}>
-      </BrowserHeader>
+      <BrowserHeader title={"Welcome Back!"} blurb={"What would you like to read today?"}/>
       <div className="shelf">
-        <Book title={"book title"} author={"book author"}></Book>
-        <Book title={"book title"} author={"book author"}></Book>
-        <Book title={"book title"} author={"book author"}></Book>
-        <Book title={"book title"} author={"book author"}></Book>
-        <Book title={"book title"} author={"book author"}></Book>
-        <Book title={"book title"} author={"book author"}></Book>
-        <Book title={"book title"} author={"book author"}></Book>
-        <Book title={"book title"} author={"book author"}></Book>
-        <Book title={"book title"} author={"book author"}></Book>
-        <Book title={"book title"} author={"book author"}></Book>
-        <Book title={"book title"} author={"book author"}></Book>
-        <Book title={"book title"} author={"book author"}></Book>
+        {bookMetadata.bookMetadata.map(metadata => <Book key={metadata._id} title={metadata.title} coverImage={metadata.coverImage} author={metadata.author} />)}
       </div>
     </div>
   );

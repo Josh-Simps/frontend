@@ -1,7 +1,7 @@
 export interface BookMetadata {
   _id: string
   title: string
-  image: string
+  coverImage: string
   author: string
   publishDate: string
 }
