@@ -99,14 +99,10 @@ img {
     right: 5%;
 }
 
-.page-cover {
-    
-}
-
 .pageSlider {
     margin-bottom: 5vh;
 }
 
 .slider {
-    background-color:red ;
+    background-color: #000;
 }
