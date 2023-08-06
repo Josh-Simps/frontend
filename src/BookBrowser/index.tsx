@@ -31,13 +31,13 @@ const Book = React.forwardRef<HTMLDivElement, BookProp>((props, ref) => {
     <div className="book" ref={ref} data-density="hard">
       <div>
         <h1>{props.title}</h1>
-        <img className='book-image' src={props.coverImage} onClick={props.onClick}></img>/<h4>{props.author}</h4>
+        <img className="book-image" src={props.coverImage} onClick={props.onClick}></img>/<h4>{props.author}</h4>
       </div>
     </div>
   )
 })
 
-const BrowserMain = React.forwardRef(() => {
+const BrowserMain = () => {
   const naviate = useNavigate()
   const bookMetadata = useBookContext()
   return (
@@ -58,6 +58,6 @@ const BrowserMain = React.forwardRef(() => {
       </div>
     </div>
   )
-})
+}
 
 export default BrowserMain
