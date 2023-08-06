@@ -109,7 +109,7 @@ const MangaPage = () => {
       <div className="mangaPage">
         <div className="manga-header-section" style={{marginBottom: "0vh"}}>
           <div id="top-left">
-            <Link to="/">
+            <Link to="/browser">
               <IconButton aria-label="Back" size="large" sx={{ color: '#FD943D', height: "55px", backgroundColor: "#111"}}>
                 <ArrowBackIcon />
               </IconButton>
