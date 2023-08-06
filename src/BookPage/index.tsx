@@ -85,7 +85,7 @@ const BookPage = () => {
       <div className="bookPage">
         <div className="header-section">
           <Link to="/">
-            <IconButton aria-label="Back" size="large">
+            <IconButton aria-label="Back" size="large" sx={{ color: 'white' }}>
               <ArrowBackIcon />
             </IconButton>
           </Link>
