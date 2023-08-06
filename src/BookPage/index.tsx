@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import PageSlider from '../PageSlider/PageSlider'
+import HistorySlider from '../HistorySlider/HistorySlider'
 
 export interface BookType {
   title: string
@@ -96,6 +97,29 @@ const BookPage = () => {
     }
   }
 
+  function mapLanguage(value:number): Language{
+    switch (value) {
+      case 0:
+        return "unown" as Language
+      case 50:
+        return "15" as Language
+      case 100:
+        return "english" as Language
+      default:
+        return "image" as Language
+    }
+  }
+
+  const handleSliderChange = (value: number) => {
+    const selectValue = mapLanguage(value)
+    setLang(selectValue)
+    if (selectValue === 'unown') {
+      setFontFamily('unown')
+    } else {
+      setFontFamily('chillax')
+    }
+  }
+
   useEffect(() => {
     setCurrentBookId(id as string)
   }, [id, setCurrentBookId])
@@ -147,6 +171,7 @@ const BookPage = () => {
               ←
             </button>
           </div>
+          <HistorySlider defaultValue={0} onSliderChange={handleSliderChange}></HistorySlider>
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-standard-label">Language</InputLabel>
             <Select
