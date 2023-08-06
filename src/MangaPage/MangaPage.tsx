@@ -55,6 +55,14 @@ const MangaPage = () => {
     setLang(selectValue)
   }
 
+  if (loading) {
+    return (
+      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true} onClick={() => {}}>
+        {loading && <CircularProgress color="inherit" />}
+      </Backdrop>
+    )
+  }
+
   const book = currentBook as Book
 
   const flipPage = (pageNumber: number, flipBar: boolean) => {
