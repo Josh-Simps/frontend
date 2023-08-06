@@ -17,7 +17,7 @@ export interface BookProp {
 
 const BrowserHeader = React.forwardRef<HTMLDivElement, BrowserProp>((props, ref) => {
   return (
-    <div ref={ref}>
+    <div ref={ref} className="header">
       <div>
         <h1>{props.title}</h1>
         <h4>{props.blurb}</h4>
@@ -30,8 +30,10 @@ const Book = React.forwardRef<HTMLDivElement, BookProp>((props, ref) => {
   return (
     <div className="book" ref={ref} data-density="hard">
       <div>
+        
+        <img className='book-image' src={props.coverImage} onClick={props.onClick}></img>
         <h1>{props.title}</h1>
-        <img className="book-image" src={props.coverImage} onClick={props.onClick}></img>/<h4>{props.author}</h4>
+        <h4>{props.author}</h4>
       </div>
     </div>
   )

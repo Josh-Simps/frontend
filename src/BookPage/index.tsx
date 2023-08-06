@@ -1,18 +1,18 @@
 import HTMLFlipBook from 'react-pageflip'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import './BookPage.css'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useBookContext } from '../contexts/BookContext'
-import { Book, Language } from '../services/BookData'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import { Language } from '../services/BookData'
 import PageSlider from '../PageSlider/PageSlider'
+import HistorySlider from '../HistorySlider/HistorySlider'
 import Page from './Page'
 import PageCover from './PageCover'
+import { useBook } from '../hooks/useBook'
+import { IconButton } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import GenericError from '../GenericError'
 
 export interface BookType {
   title: string
@@ -33,18 +33,29 @@ const formatBase64Image = (image: string): string => {
 
 const BookPage = () => {
   const { id } = useParams()
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
-  const { setCurrentBookId, currentBook } = useBookContext()
+  const [isLoading, error, book] = useBook(id)
   const [lang, setLang] = useState<Language>('english')
   const [fontFamily, setFontFamily] = useState<string>('chillax')
 
   // Page slider
   const [pageNumber, setPageNumber] = React.useState(0)
-  const ref = useRef(null)
+  const ref = useRef<any>(null)
 
-  const handleChange = (event: SelectChangeEvent) => {
-    const selectValue = event.target.value as Language
+  function mapLanguage(value: number): Language {
+    switch (value) {
+      case 0:
+        return 'unown' as Language
+      case 50:
+        return '15' as Language
+      case 100:
+        return 'english' as Language
+      default:
+        return 'image' as Language
+    }
+  }
+
+  const handleSliderChange = (value: number) => {
+    const selectValue = mapLanguage(value)
     setLang(selectValue)
     if (selectValue === 'unown') {
       setFontFamily('unown')
@@ -53,26 +64,14 @@ const BookPage = () => {
     }
   }
 
-  useEffect(() => {
-    setCurrentBookId(id as string)
-  }, [id, setCurrentBookId])
-
-  useEffect(() => {
-    if (currentBook != null) {
-      console.log(currentBook)
-      setLoading(false)
-    }
-  }, [currentBook])
-
-  if (currentBook == null) {
+  if (book === null || isLoading) {
     return (
-      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading} onClick={() => {}}>
-        <CircularProgress color="inherit" />
+      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true} onClick={() => {}}>
+        {isLoading && <CircularProgress color="inherit" />}
+        {error !== null && <GenericError />}
       </Backdrop>
     )
   }
-
-  const book = currentBook as Book
 
   const flipPage = (pageNumber: number, flipBar: boolean) => {
     if (ref.current != null) {
@@ -87,7 +86,7 @@ const BookPage = () => {
     setPageNumber(num / 2)
   }
 
-  const pages = currentBook.content.english.length
+  const pages = book.content.english.length
 
   const scrollable = Math.ceil(pages / 2)
 
@@ -95,32 +94,16 @@ const BookPage = () => {
     <>
       <div className="bookPage">
         <div className="header-section">
-          <div id="top-left">
-            <button
-              onClick={() => {
-                navigate('/browser')
-              }}
-            >
-              ←
-            </button>
-          </div>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-standard-label">Language</InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={lang}
-              onChange={handleChange}
-              label="Language"
-            >
-              <MenuItem value={'english'}>English</MenuItem>
-              <MenuItem value={'15'}>15th Century English</MenuItem>
-              <MenuItem value={'unown'}>Symbols</MenuItem>
-            </Select>
-          </FormControl>
+          <Link to="/">
+            <IconButton aria-label="Back" size="large" sx={{ color: 'white' }}>
+              <ArrowBackIcon />
+            </IconButton>
+          </Link>
+          <HistorySlider defaultValue={100} onSliderChange={handleSliderChange}></HistorySlider>
         </div>
 
         <div id="book" style={{ fontFamily: '' }}>
+          {/* @ts-ignore */}
           <HTMLFlipBook
             width={500}
             height={480}
@@ -141,7 +124,7 @@ const BookPage = () => {
                   key={index}
                   image={imageBase64}
                   content={pageContent}
-                  pageNumber={(index + 1).toString()}
+                  pageNumber={index + 1}
                   fontFamily={fontFamily}
                 />
               )
@@ -152,9 +135,6 @@ const BookPage = () => {
           <PageSlider page={pageNumber} maxPages={scrollable} updatePage={flipPage} />
         </div>
       </div>
-      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading} onClick={() => {}}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
     </>
   )
 }

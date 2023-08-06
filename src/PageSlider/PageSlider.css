@@ -1,7 +1,7 @@
 
 .slider {
-    background-color: blue;
-    height: 10px;
+    background-color: rgb(37, 18, 6);
+    height: 12px;
     width: 100%;
     border-radius: 12px;
     margin-bottom: 10px;
@@ -9,12 +9,14 @@
 }
 
 .thumb {
-    background-color: green;
+    background-color: #fff;
+    box-shadow: #000 2px 1px 5px;
     width: 50px;
     height: 10px;
     border-radius: 12px;
     border: none;
     transition: left 0.5s ease-out;
+    outline: none;
 }
 
 .thumb:hover {
