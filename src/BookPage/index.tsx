@@ -97,7 +97,7 @@ const BookPage = () => {
     <>
       <div className="bookPage">
         <div className="header-section">
-          <Link to="/">
+          <Link to="/browser">
             <IconButton aria-label="Back" size="large" sx={{ color: 'white' }}>
               <ArrowBackIcon />
             </IconButton>
