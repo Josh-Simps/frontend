@@ -5,10 +5,6 @@ import { Link, useParams } from 'react-router-dom'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Language } from '../services/BookData'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
 import PageSlider from '../PageSlider/PageSlider'
 import HistorySlider from '../HistorySlider/HistorySlider'
 import Page from './Page'
@@ -45,16 +41,16 @@ const BookPage = () => {
   const [pageNumber, setPageNumber] = React.useState(0)
   const ref = useRef<any>(null)
 
-  function mapLanguage(value:number): Language{
+  function mapLanguage(value: number): Language {
     switch (value) {
       case 0:
-        return "unown" as Language
+        return 'unown' as Language
       case 50:
-        return "15" as Language
+        return '15' as Language
       case 100:
-        return "english" as Language
+        return 'english' as Language
       default:
-        return "image" as Language
+        return 'image' as Language
     }
   }
 
@@ -98,21 +94,12 @@ const BookPage = () => {
     <>
       <div className="bookPage">
         <div className="header-section">
-          <div id="top-left">
-            <button
-              onClick={() => {
-                navigate('/browser')
-              }}
-            >
-              ←
-            </button>
-          </div>
-          <HistorySlider defaultValue={100} onSliderChange={handleSliderChange}></HistorySlider>
           <Link to="/">
             <IconButton aria-label="Back" size="large" sx={{ color: 'white' }}>
               <ArrowBackIcon />
             </IconButton>
           </Link>
+          <HistorySlider defaultValue={100} onSliderChange={handleSliderChange}></HistorySlider>
         </div>
 
         <div id="book" style={{ fontFamily: '' }}>
