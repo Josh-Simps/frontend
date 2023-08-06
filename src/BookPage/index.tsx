@@ -87,16 +87,6 @@ const BookPage = () => {
   const [pageNumber, setPageNumber] = React.useState(0)
   const ref = useRef(null)
 
-  const handleChange = (event: SelectChangeEvent) => {
-    const selectValue = event.target.value as Language
-    setLang(selectValue)
-    if (selectValue === 'unown') {
-      setFontFamily('unown')
-    } else {
-      setFontFamily('chillax')
-    }
-  }
-
   function mapLanguage(value:number): Language{
     switch (value) {
       case 0:
@@ -171,21 +161,8 @@ const BookPage = () => {
               ←
             </button>
           </div>
-          <HistorySlider defaultValue={0} onSliderChange={handleSliderChange}></HistorySlider>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-standard-label">Language</InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={lang}
-              onChange={handleChange}
-              label="Language"
-            >
-              <MenuItem value={'english'}>English</MenuItem>
-              <MenuItem value={'15'}>15th Century English</MenuItem>
-              <MenuItem value={'unown'}>Symbols</MenuItem>
-            </Select>
-          </FormControl>
+          <HistorySlider defaultValue={100} onSliderChange={handleSliderChange}></HistorySlider>
+
         </div>
 
         <div id="book" style={{ fontFamily: '' }}>
