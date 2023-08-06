@@ -3,7 +3,7 @@ import { forwardRef } from 'react'
 interface PageProps {
   image: string
   content: string
-  pageNumber: string
+  pageNumber: number
   fontFamily: string
 }
 

@@ -125,7 +125,7 @@ const BookPage = () => {
                   key={index}
                   image={imageBase64}
                   content={pageContent}
-                  pageNumber={(index + 1).toString()}
+                  pageNumber={index + 1}
                   fontFamily={fontFamily}
                 />
               )
