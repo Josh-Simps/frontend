@@ -7,6 +7,10 @@
   width: 100vw;
 }
 
+.parchment-background-image {
+  background-image: url('../assets/parchment.jpg');
+}
+
 .imageContainer {
   width: 100%;
   height: 100%;
@@ -17,6 +21,7 @@
 
 .textContainer {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,8 +55,7 @@
 }
 
 .progressIndicator {
-    position: absolute;
-    top: 85%;
-    left: 90%;
-
+  position: absolute;
+  top: 85%;
+  left: 90%;
 }
