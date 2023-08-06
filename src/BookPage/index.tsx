@@ -13,8 +13,9 @@ import PageSlider from '../PageSlider/PageSlider'
 import Page from './Page'
 import PageCover from './PageCover'
 import { useBook } from '../hooks/useBook'
-import { Alert, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import GenericError from '../GenericError'
 
 export interface BookType {
   title: string
@@ -57,7 +58,7 @@ const BookPage = () => {
     return (
       <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true} onClick={() => {}}>
         {isLoading && <CircularProgress color="inherit" />}
-        {error !== null && <Alert severity="error">There was an error loading the book sorry!</Alert>}
+        {error !== null && <GenericError />}
       </Backdrop>
     )
   }
