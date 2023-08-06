@@ -1,11 +1,10 @@
 import HTMLFlipBook from 'react-pageflip'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import './BookPage.css'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useBookContext } from '../contexts/BookContext'
-import { Book, Language } from '../services/BookData'
+import { Language } from '../services/BookData'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
@@ -13,6 +12,10 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import PageSlider from '../PageSlider/PageSlider'
 import Page from './Page'
 import PageCover from './PageCover'
+import { useBook } from '../hooks/useBook'
+import { IconButton } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import GenericError from '../GenericError'
 
 export interface BookType {
   title: string
@@ -33,9 +36,7 @@ const formatBase64Image = (image: string): string => {
 
 const BookPage = () => {
   const { id } = useParams()
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
-  const { setCurrentBookId, currentBook } = useBookContext()
+  const [isLoading, error, book] = useBook(id)
   const [lang, setLang] = useState<Language>('english')
   const [fontFamily, setFontFamily] = useState<string>('chillax')
 
@@ -53,26 +54,14 @@ const BookPage = () => {
     }
   }
 
-  useEffect(() => {
-    setCurrentBookId(id as string)
-  }, [id, setCurrentBookId])
-
-  useEffect(() => {
-    if (currentBook != null) {
-      console.log(currentBook)
-      setLoading(false)
-    }
-  }, [currentBook])
-
-  if (currentBook == null) {
+  if (book === null || isLoading) {
     return (
-      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading} onClick={() => {}}>
-        <CircularProgress color="inherit" />
+      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true} onClick={() => {}}>
+        {isLoading && <CircularProgress color="inherit" />}
+        {error !== null && <GenericError />}
       </Backdrop>
     )
   }
-
-  const book = currentBook as Book
 
   const flipPage = (pageNumber: number, flipBar: boolean) => {
     if (ref.current != null) {
@@ -87,7 +76,7 @@ const BookPage = () => {
     setPageNumber(num / 2)
   }
 
-  const pages = currentBook.content.english.length
+  const pages = book.content.english.length
 
   const scrollable = Math.ceil(pages / 2)
 
@@ -95,15 +84,11 @@ const BookPage = () => {
     <>
       <div className="bookPage">
         <div className="header-section">
-          <div id="top-left">
-            <button
-              onClick={() => {
-                navigate('/browser')
-              }}
-            >
-              ←
-            </button>
-          </div>
+          <Link to="/">
+            <IconButton aria-label="Back" size="large">
+              <ArrowBackIcon />
+            </IconButton>
+          </Link>
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-standard-label">Language</InputLabel>
             <Select
@@ -141,7 +126,7 @@ const BookPage = () => {
                   key={index}
                   image={imageBase64}
                   content={pageContent}
-                  pageNumber={(index + 1).toString()}
+                  pageNumber={index + 1}
                   fontFamily={fontFamily}
                 />
               )
@@ -152,9 +137,6 @@ const BookPage = () => {
           <PageSlider page={pageNumber} maxPages={scrollable} updatePage={flipPage} />
         </div>
       </div>
-      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading} onClick={() => {}}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
     </>
   )
 }
