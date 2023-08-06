@@ -5,14 +5,14 @@ import { handleResponseError } from '../utils/requestUtils'
 
 interface BookContextType {
   bookMetadata: BookMetadata[]
-  currentBook: Book | null
-  setCurrentBookId(id: string): void
+  insertBook(book: Book): void
+  getBook(bookId: string): Book | null
 }
 
 const BookContext = createContext<BookContextType>({
   bookMetadata: [],
-  currentBook: null,
-  setCurrentBookId: () => {},
+  insertBook: () => {},
+  getBook: () => null,
 })
 
 export const useBookContext = () => useContext(BookContext)
@@ -21,8 +21,7 @@ export const BookContextProvider: FC<{
   children?: ReactNode
 }> = ({ children }) => {
   const [bookMetadata, setBookMetadata] = useState<BookMetadata[]>([])
-  const [currentBookId, setCurrentBookId] = useState<string | null>(null)
-  const [currentBook, setCurrentBook] = useState<Book | null>(null)
+  const [books, setBooks] = useState<Record<string, Book>>({})
 
   useEffect(() => {
     if (bookMetadata.length === 0) {
@@ -38,29 +37,21 @@ export const BookContextProvider: FC<{
     }
   }, [bookMetadata])
 
-  useEffect(() => {
-    if (currentBookId !== null) {
-      const controller = new AbortController()
-      const signal = controller.signal
+  const getBook = useCallback(
+    (bookId: string) => {
+      return books[bookId] ?? null
+    },
+    [books]
+  )
 
-      fetch(`${Config.BackendBaseUrl}/api/books/${currentBookId}`, { signal })
-        .then((response) => response.json())
-        .then((data) => setCurrentBook(data))
-        .catch(handleResponseError)
-
-      return () => controller.abort()
-    }
-  }, [currentBookId])
-
-  const handleSetCurrentId = useCallback((id: string): void => {
-    setCurrentBook(null)
-    setCurrentBookId(id)
+  const insertBook = useCallback((book: Book) => {
+    setBooks((books) => ({ ...books, [book._id]: book }))
   }, [])
 
   const contextValue: BookContextType = {
     bookMetadata,
-    currentBook,
-    setCurrentBookId: handleSetCurrentId,
+    getBook,
+    insertBook,
   }
 
   return <BookContext.Provider value={contextValue}>{children}</BookContext.Provider>

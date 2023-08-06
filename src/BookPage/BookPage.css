@@ -11,12 +11,23 @@
 #root {
     margin: 0;
     padding: 0;
+    color: #321505;
+}
+
+body {
+    overflow: hidden; /* Hide scrollbars */
+  }
+
+img {
+    box-shadow: #000 2px 4px 5px;
 }
 
 .bookPage {
     width: 100vw;
     height: 100vh;
     background-color: #333;
+    background-image: url(../assets/woodplane.jpg);
+    background-size: cover;
     display: flex;
     flex-direction: column;
 }
@@ -49,16 +60,22 @@
 }
 
 #book {
+    box-shadow: #000 5px 10px 20px;
     margin: auto;
-    background-color: #fff;
+    background-color: #4c2c02;
     width: 90vw;
 }
 
 .page {
-    background-image: url(../assets/paper-background.jpg);
+    background-image: url(../assets/parchment.jpg);
     background-size: cover;
     text-align: justify;
     line-height: 23px;
+    z-index: 10;
+}
+
+.page h5 {
+    font-size: 0.8vmax;
 }
 
 .page img {
@@ -71,7 +88,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: black;
+    color: #321505;
 }
 
 /* number in bottom right corner of page */
@@ -83,9 +100,9 @@
 }
 
 .pageSlider {
-    margin-bottom: 50px;
+    margin-bottom: 5vh;
 }
 
 .slider {
-    background-color:red ;
+    background-color: #000;
 }

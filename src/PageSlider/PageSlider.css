@@ -1,7 +1,8 @@
 
 .slider {
-    background-color: blue;
-    height: 10px;
+    z-index: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 17px;
     width: 100%;
     border-radius: 12px;
     margin-bottom: 10px;
@@ -9,12 +10,16 @@
 }
 
 .thumb {
-    background-color: green;
-    width: 50px;
-    height: 10px;
+    background-color: #fff;
+    background-image: url(../assets/parchment.jpg);
+    background-size: cover;
+    box-shadow: #000 2px 1px 5px;
+    width: 100px;
+    height: 15px;
     border-radius: 12px;
     border: none;
     transition: left 0.5s ease-out;
+    outline: none;
 }
 
 .thumb:hover {
