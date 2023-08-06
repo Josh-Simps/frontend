@@ -9,7 +9,7 @@ const BookOnboarding = () => {
         textBackgroundColor='white'
         modernEnglishText="Do you struggle with the"
         oldEnglishText="perusal of text?"
-        currentStage={1}
+        currentStage={33}
       />
     </>
   )

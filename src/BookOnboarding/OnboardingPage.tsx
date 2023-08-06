@@ -1,3 +1,4 @@
+import OnboardingProgress from './OnboardingProgress'
 import './index.css'
 
 interface OnboardingPageProps {
@@ -27,7 +28,7 @@ const OnboardingPage = ({
           <div className="modernEnglishText">{modernEnglishText}</div>
           <div className="oldEnglishText">{oldEnglishText}</div>
         </div>
-        <div>{currentStage}</div>
+        <div><OnboardingProgress progressValue={currentStage}/></div>
       </div>
     </div>
   )
