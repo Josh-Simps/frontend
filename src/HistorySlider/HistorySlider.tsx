@@ -26,6 +26,7 @@ const StyledSlider = styled(Slider)({
   [`& .${sliderClasses.markLabel}`]: {
     color: 'white',
     fontWeight: 'inherit',
+    fontFamily: 'chillax'
   },
 })
 
