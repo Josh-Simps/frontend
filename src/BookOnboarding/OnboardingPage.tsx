@@ -28,7 +28,7 @@ const OnboardingPage = ({
           <div className="modernEnglishText">{modernEnglishText}</div>
           <div className="oldEnglishText">{oldEnglishText}</div>
         </div>
-        <div><OnboardingProgress progressValue={currentStage}/></div>
+        <div className='progressIndicator'><OnboardingProgress progressValue={currentStage}/></div>
       </div>
     </div>
   )

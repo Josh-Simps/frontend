@@ -48,3 +48,10 @@
 .text {
   width: 70%;
 }
+
+.progressIndicator {
+    position: absolute;
+    top: 85%;
+    left: 90%;
+
+}
