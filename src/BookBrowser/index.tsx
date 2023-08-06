@@ -39,7 +39,7 @@ const Book = React.forwardRef<HTMLDivElement, BookProp>((props, ref) => {
   )
 })
 
-const BrowserMain = React.forwardRef(() => {
+const BrowserMain = () => {
   const naviate = useNavigate()
   const bookMetadata = useBookContext()
   return (
@@ -60,6 +60,6 @@ const BrowserMain = React.forwardRef(() => {
       </div>
     </div>
   )
-})
+}
 
 export default BrowserMain

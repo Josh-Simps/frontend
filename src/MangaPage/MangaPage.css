@@ -1,0 +1,90 @@
+@font-face {
+    font-family: chillax;
+    src: url(../assets/fonts/Chillax-Medium.woff2);
+}
+
+@font-face {
+    font-family: unown;
+    src: url(../assets/fonts/Unown.ttf);
+}
+
+#root {
+    margin: 0;
+    padding: 0;
+}
+
+.mangaPage {
+    width: 100vw;
+    height: 100vh;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+}
+
+.manga-header-section {
+    margin: 2.5vh 5vw -5vh 5vw;
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.manga-header-section #top-left {
+    display: flex;
+    align-items: center;
+}
+
+.manga-header-section #top-left button {
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    font-size: 3vmax;
+    width: 4vw;
+    padding: 0px;
+    margin-right: 3vw;
+}
+
+.manga-header-section #top-left button:hover {
+    background-color: #555;
+}
+
+#book {
+    margin: auto;
+    background-color: #fff;
+    width: 90vw;
+}
+
+.manga-page {
+    background-image: url(../assets/paper-background.jpg);
+    background-size: cover;
+    text-align: justify;
+    line-height: 23px;
+}
+
+.manga-page img {
+    width: 60%;
+}
+
+.manga-page-content {
+    margin: 2vmax;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+}
+
+/* number in bottom right corner of page */
+.manga-page-corner {
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 5%;
+}
+
+.manga-pageSlider {
+    margin-bottom: 50px;
+}
+
+.slider {
+    background-color: red;
+}
