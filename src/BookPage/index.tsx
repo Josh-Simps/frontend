@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import PageSlider from '../PageSlider/PageSlider'
+import HistorySlider from '../HistorySlider/HistorySlider'
 import Page from './Page'
 import PageCover from './PageCover'
 import { useBook } from '../hooks/useBook'
@@ -44,8 +45,21 @@ const BookPage = () => {
   const [pageNumber, setPageNumber] = React.useState(0)
   const ref = useRef(null)
 
-  const handleChange = (event: SelectChangeEvent) => {
-    const selectValue = event.target.value as Language
+  function mapLanguage(value:number): Language{
+    switch (value) {
+      case 0:
+        return "unown" as Language
+      case 50:
+        return "15" as Language
+      case 100:
+        return "english" as Language
+      default:
+        return "image" as Language
+    }
+  }
+
+  const handleSliderChange = (value: number) => {
+    const selectValue = mapLanguage(value)
     setLang(selectValue)
     if (selectValue === 'unown') {
       setFontFamily('unown')
@@ -84,25 +98,21 @@ const BookPage = () => {
     <>
       <div className="bookPage">
         <div className="header-section">
+          <div id="top-left">
+            <button
+              onClick={() => {
+                navigate('/browser')
+              }}
+            >
+              ←
+            </button>
+          </div>
+          <HistorySlider defaultValue={100} onSliderChange={handleSliderChange}></HistorySlider>
           <Link to="/">
             <IconButton aria-label="Back" size="large">
               <ArrowBackIcon />
             </IconButton>
           </Link>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-standard-label">Language</InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={lang}
-              onChange={handleChange}
-              label="Language"
-            >
-              <MenuItem value={'english'}>English</MenuItem>
-              <MenuItem value={'15'}>15th Century English</MenuItem>
-              <MenuItem value={'unown'}>Symbols</MenuItem>
-            </Select>
-          </FormControl>
         </div>
 
         <div id="book" style={{ fontFamily: '' }}>
