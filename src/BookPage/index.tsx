@@ -1,7 +1,7 @@
 import HTMLFlipBook from 'react-pageflip'
 import React, { useRef, useState } from 'react'
 import './BookPage.css'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Language } from '../services/BookData'
@@ -13,7 +13,8 @@ import PageSlider from '../PageSlider/PageSlider'
 import Page from './Page'
 import PageCover from './PageCover'
 import { useBook } from '../hooks/useBook'
-import { Alert } from '@mui/material'
+import { Alert, IconButton } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 export interface BookType {
   title: string
@@ -34,7 +35,6 @@ const formatBase64Image = (image: string): string => {
 
 const BookPage = () => {
   const { id } = useParams()
-  const navigate = useNavigate()
   const [isLoading, error, book] = useBook(id)
   const [lang, setLang] = useState<Language>('english')
   const [fontFamily, setFontFamily] = useState<string>('chillax')
@@ -83,15 +83,11 @@ const BookPage = () => {
     <>
       <div className="bookPage">
         <div className="header-section">
-          <div id="top-left">
-            <button
-              onClick={() => {
-                navigate('/browser')
-              }}
-            >
-              ←
-            </button>
-          </div>
+          <Link to="/">
+            <IconButton aria-label="Back" size="large">
+              <ArrowBackIcon />
+            </IconButton>
+          </Link>
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-standard-label">Language</InputLabel>
             <Select
