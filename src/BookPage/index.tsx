@@ -42,7 +42,7 @@ const BookPage = () => {
 
   // Page slider
   const [pageNumber, setPageNumber] = React.useState(0)
-  const ref = useRef(null)
+  const ref = useRef<any>(null)
 
   const handleChange = (event: SelectChangeEvent) => {
     const selectValue = event.target.value as Language
@@ -106,6 +106,7 @@ const BookPage = () => {
         </div>
 
         <div id="book" style={{ fontFamily: '' }}>
+          {/* @ts-ignore */}
           <HTMLFlipBook
             width={500}
             height={480}
