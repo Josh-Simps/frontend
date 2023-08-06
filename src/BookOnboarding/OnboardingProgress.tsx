@@ -21,7 +21,9 @@ function CircularProgressWithLabel(props: CircularProgressProps) {
           justifyContent: 'center',
         }}
       >
-      <ArrowForwardIosIcon style={{ color: 'black' }}/>
+        <ArrowForwardIosIcon
+          style={{ color: 'white', backgroundColor: 'black', borderRadius: '100%', padding: '14px' }}
+        />
       </Box>
     </Box>
   )
@@ -29,7 +31,11 @@ function CircularProgressWithLabel(props: CircularProgressProps) {
 const OnboardingProgress = ({ progressValue }: OnboardingProgressProps) => {
   return (
     <>
-      <CircularProgressWithLabel variant="determinate" value={progressValue} />
+      <CircularProgressWithLabel
+        variant="determinate"
+        value={progressValue}
+        style={{ color: 'black', width: '74px', height: '74px' }}
+      />
     </>
   )
 }
