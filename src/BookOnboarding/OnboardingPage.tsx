@@ -3,6 +3,7 @@ import './index.css'
 interface OnboardingPageProps {
   image: string
   imageColour: string
+  textBackgroundColor: string
   modernEnglishText: string
   oldEnglishText: string
   currentStage: number
@@ -11,6 +12,7 @@ interface OnboardingPageProps {
 const OnboardingPage = ({
   image,
   imageColour,
+  textBackgroundColor,
   modernEnglishText,
   oldEnglishText,
   currentStage,
@@ -20,9 +22,11 @@ const OnboardingPage = ({
       <div className="imageContainer" style={{ backgroundColor: imageColour }}>
         <img src={image} alt="lol what is accessibility anyway" className="image" />
       </div>
-      <div className="textContainer">
-        <span>{modernEnglishText}</span>
-        <span>{oldEnglishText}</span>
+      <div className="textContainer" style={{ backgroundColor: textBackgroundColor }}>
+        <div className='text'>
+          <div className="modernEnglishText">{modernEnglishText}</div>
+          <div className="oldEnglishText">{oldEnglishText}</div>
+        </div>
         <div>{currentStage}</div>
       </div>
     </div>

@@ -8,18 +8,43 @@
 }
 
 .imageContainer {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .textContainer {
-    width: 100%
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .image {
-    width: 65%;
-    object-fit: cover;
+  width: 65%;
+  object-fit: cover;
+}
+
+.modernEnglishText {
+  text-align: justify;
+  font-size: 3.5em;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 0.15em;
+}
+
+.oldEnglishText {
+  text-align: left;
+  font-size: 4.5em;
+  font-weight: 500;
+  line-height: 1.1;
+  word-spacing: 0.55em;
+  font-family: 'Cookie', cursive;
+}
+
+.text {
+  width: 70%;
 }
