@@ -1,17 +1,22 @@
 import HTMLFlipBook from 'react-pageflip'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import './BookPage.css'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useBookContext } from '../contexts/BookContext'
-import { Book, Language } from '../services/BookData'
+import { Language } from '../services/BookData'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import PageSlider from '../PageSlider/PageSlider'
 import HistorySlider from '../HistorySlider/HistorySlider'
+import Page from './Page'
+import PageCover from './PageCover'
+import { useBook } from '../hooks/useBook'
+import { IconButton } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import GenericError from '../GenericError'
 
 export interface BookType {
   title: string
@@ -26,60 +31,13 @@ export interface BookType {
   }
 }
 
-interface CoverType {
-  title: string
-  coverImage?: string
-  author?: string
-  publishDate?: Date
-  blurb?: string
-  fontFamily: string
-}
-
-interface PageType {
-  img: string
-  pageContent: string
-  pageNumber: string
-  fontFamily: string
-}
-
-const PageCover = React.forwardRef<HTMLDivElement, CoverType>((props, ref) => {
-  console.log(props.fontFamily)
-  return (
-    <div className="page page-cover" ref={ref}>
-      <div className="page-content" style={{ fontFamily: props.fontFamily }}>
-        <img src={props.coverImage}></img>
-        <h1>{props.title}</h1>
-        <h3>{props.author}</h3>
-        <h4>{props.blurb}</h4>
-      </div>
-    </div>
-  )
-})
-
-const Page = React.forwardRef<HTMLDivElement, PageType>((props, ref) => {
-  return (
-    <div className="page" ref={ref} data-density="hard">
-      <div className="page-content" style={{ fontFamily: props.fontFamily }}>
-        <img src={props.img}></img>
-        <h5>{props.pageContent}</h5>
-
-        <div className="page-corner">
-          <h5>{props.pageNumber}</h5>
-        </div>
-      </div>
-    </div>
-  )
-})
-
 const formatBase64Image = (image: string): string => {
   return `data:image/jpeg;base64,${image}`
 }
 
 const BookPage = () => {
   const { id } = useParams()
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
-  const { setCurrentBookId, currentBook } = useBookContext()
+  const [isLoading, error, book] = useBook(id)
   const [lang, setLang] = useState<Language>('english')
   const [fontFamily, setFontFamily] = useState<string>('chillax')
 
@@ -110,26 +68,14 @@ const BookPage = () => {
     }
   }
 
-  useEffect(() => {
-    setCurrentBookId(id as string)
-  }, [id, setCurrentBookId])
-
-  useEffect(() => {
-    if (currentBook != null) {
-      console.log(currentBook)
-      setLoading(false)
-    }
-  }, [currentBook])
-
-  if (currentBook == null) {
+  if (book === null || isLoading) {
     return (
-      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading} onClick={() => {}}>
-        <CircularProgress color="inherit" />
+      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true} onClick={() => {}}>
+        {isLoading && <CircularProgress color="inherit" />}
+        {error !== null && <GenericError />}
       </Backdrop>
     )
   }
-
-  const book = currentBook as Book
 
   const flipPage = (pageNumber: number, flipBar: boolean) => {
     if (ref.current != null) {
@@ -144,7 +90,7 @@ const BookPage = () => {
     setPageNumber(num / 2)
   }
 
-  const pages = currentBook.content.english.length
+  const pages = book.content.english.length
 
   const scrollable = Math.ceil(pages / 2)
 
@@ -162,7 +108,11 @@ const BookPage = () => {
             </button>
           </div>
           <HistorySlider defaultValue={100} onSliderChange={handleSliderChange}></HistorySlider>
-
+          <Link to="/">
+            <IconButton aria-label="Back" size="large">
+              <ArrowBackIcon />
+            </IconButton>
+          </Link>
         </div>
 
         <div id="book" style={{ fontFamily: '' }}>
@@ -184,9 +134,9 @@ const BookPage = () => {
               return (
                 <Page
                   key={index}
-                  img={imageBase64}
-                  pageContent={pageContent}
-                  pageNumber={(index + 1).toString()}
+                  image={imageBase64}
+                  content={pageContent}
+                  pageNumber={index + 1}
                   fontFamily={fontFamily}
                 />
               )
@@ -197,9 +147,6 @@ const BookPage = () => {
           <PageSlider page={pageNumber} maxPages={scrollable} updatePage={flipPage} />
         </div>
       </div>
-      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading} onClick={() => {}}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
     </>
   )
 }

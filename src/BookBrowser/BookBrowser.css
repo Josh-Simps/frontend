@@ -3,18 +3,39 @@
     padding: 0;
 }
 
+h1 {
+    font-family: 'Kolker Brush', cursive;
+}
+
+.header h1 {
+    font-size: 11vmax;
+    margin-bottom: -5vh;
+}
+
+.header h4 {
+    font-family: 'Tangerine', cursive;
+    font-weight: 100;
+    font-size: 2.3vmax;
+    letter-spacing: 3px;
+    margin: 0 0 3vh 0;
+}
+
 .bookBrowser {
     width: 100vw;
     height: 100vh;
-    background-color: aliceblue;
+    background-color: #1a0a03;
+    background-image: url(../assets/papermap.png);
+    background-size: cover;
+    color: #321505;
     display: flex;
     flex-direction: column;
 }
 
 .shelf {
-    width: 80vw;
+    padding: 0 0.8vw;
+    width: 76vw;
     height: 80vh;
-    background-color: antiquewhite;
+    background-color: rgba(0,0,0,0);
     margin: auto;
     display: flex;
     flex-direction: row;
@@ -23,8 +44,26 @@
 }
 
 .book {
-    margin-left: 1%;
-    margin-right: 1%;
+    padding-right: 2%;
+    text-align: left;
+}
+
+.book-image {
+    height: 35vh;
+    box-shadow: #000 0 3px 10px;
+}
+
+.book h1 {
+    font-family: 'Cookie', cursive;
+    font-weight: 900;
+    margin: 0.4vmax 0;
+    font-size: 1.9vmax;
+}
+
+.book h4 {
+    font-size: 0.9vmax;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
 .book-image:hover {
